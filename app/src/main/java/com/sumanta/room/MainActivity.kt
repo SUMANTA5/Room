@@ -9,22 +9,21 @@ import androidx.room.Room
 import com.sumanta.room.db.Contact
 import com.sumanta.room.db.ContactDatabase
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var database: ContactDatabase
+    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        database = Room.databaseBuilder(applicationContext,
-            ContactDatabase::class.java,
-            "contactDB"
-        ).build()
+        database = ContactDatabase.getDatabase(this)
 
         GlobalScope.launch {
-            database.contactDao().insertContact(Contact(0,"sumanta","585458662"))
+            database.contactDao().insertContact(Contact(0,"Java","845151515"))
         }
 
     }
